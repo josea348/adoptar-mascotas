@@ -15,7 +15,7 @@ export const login = async (req, res) => {
             if (passwordMatch) {
                 // If password matches, send user data without password field
                 delete user.password;
-                const token = JWT.sign({ users }, process.env.AUT_SECRET, { expiresIn: process.env.AUT_EXPIRET })
+                const token = JWT.sign({ users }, process.env.AUT_SECRET, { expiresIn: process.env.AUT_EXPIRE })
                 res.status(200).json({user, token, message: 'Usuario Validado'});
             } else {
                 res.status(401).json({ message: "Contraseña incorrecta." });

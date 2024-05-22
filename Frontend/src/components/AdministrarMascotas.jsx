@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 const AdministrarMascotas = () => {
   const navigator = useNavigate();
   const [pets, setPets] = useState([]);
+  const [user, setUser] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedPets, setSelectedPets] = useState(null);
   
@@ -31,8 +32,19 @@ const AdministrarMascotas = () => {
     }
   }
 
+  /* const buscar = async () => {
+    try {
+      let userId = localStorage.getItem('userId');
+      const response = await axios.get(`http://localhost:3000/user/buscar/${userId}`);
+      setUser(response.data)
+    } catch (error) {
+      console.log('Error: '+error);
+    }
+  } */
+
   useEffect(() => {
     listarPets();
+    /* buscar(); */
   }, []);
   
   const adiconarBoton = () => {
@@ -66,6 +78,7 @@ const AdministrarMascotas = () => {
   return (
     <div className='container'>
       <div className='content-pets'>
+        {/* <h4>Bienvenido {user.fulname}</h4> */}
         <h1  className='title'>Administrar Mascotas</h1>
         <Boton className={'button'} onClick={adiconarBoton}>+   Adicionar</Boton>
         {pets.map((pet) => (

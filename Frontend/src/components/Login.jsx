@@ -17,11 +17,11 @@ const Login = () => {
     setLogin({...login, [e.target.name]: e.target.value});
   }
 
-  const componentDidMount() {
+  /* const componentDidMount() {
     if(cookies.get('username')) {
         window.location.href="./dashboard"
     }
-}
+} */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +44,10 @@ const Login = () => {
         icon: "error"
       });
     }
+  }
+
+  const registro = () => {
+    navigate('/registrar')
   }
 
   return (
@@ -72,6 +76,7 @@ const Login = () => {
           <Boton type="submit">Iniciar sesión</Boton>
         </div>
       </form>
+      <h3 onClick={registro}>Registrar</h3>
     </div>
   )
 }

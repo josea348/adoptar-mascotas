@@ -4,7 +4,8 @@ import Boton from './Atoms/Boton';
 import Inputs from './Atoms/Inputs';
 import './css/adicionarMascotas.css'
 import Swal from 'sweetalert2';
-import Forms from './Molecules/Forms';
+import FormsRegisterUpdate from './Molecules/FormsRegisterUpdate';
+import { useNavigate } from 'react-router-dom';
 
 const AdicionarMascotas = () => {
   const [generos, setGeneros] = useState([]);
@@ -14,9 +15,11 @@ const AdicionarMascotas = () => {
     nombre: '',
     raza: '',
     categoria: '',
-    photo: '',
-    genero: ''
+    imagen: '',
+    genero: '',
+    iduser: localStorage.getItem('userId')
   });
+  const navigator = useNavigate();
 
   const handleInputChange = (event) => {
     setRegistraPets({
@@ -36,8 +39,9 @@ const AdicionarMascotas = () => {
         nombre: '',
         raza: '',
         categoria: '',
-        photo: '',
-        genero: ''
+        imagen: '',
+        genero: '',
+        iduser: ''
       });
       Swal.fire({
         title: "Registrado!",
@@ -90,10 +94,22 @@ const AdicionarMascotas = () => {
     listarGenero();
   }, []);
 
+  const closeForm = () => {
+    navigator('/dashboard');
+  }
+
   return (
-    <div className='container     w-full h-full bg-blue-800'>
+    <div className='container     w-full h-full bg-blue-[#2c4674]'>
       <div className='content     max-w-2xl mx-auto'>
-        <h1 className='title   text-white text-lg m-4 text-center'>Adicionar Mascotas</h1>
+        <div className='div-title-btn'>
+          <div className="Former">
+            <img src="./src/assets/btn-back.svg" alt="" className='formerImg' />
+          </div>
+          <div className="div-title">
+            <h1 className='title   text-white text-lg m-4 text-center'>Adicionar Mascotas</h1>
+          </div>
+          <Boton onClick={() => closeForm()} className={'btn-close'} classDiv={'classDiv'}><img src="./src/assets/btn-close.svg" alt="" /></Boton>
+        </div>
         <div className="img-primary    flex justify-center">
           <img src="./src/assets/photo-lg-0.svg" alt="" />
         </div>
@@ -119,7 +135,7 @@ const AdicionarMascotas = () => {
                 </select>
               </div>
               <div className='divs-content m-1'>
-                <Inputs type="file" name="photo" placeholder="Subir foto" onChange={handleInputChange} value={registraPets.photo} className='input inputFile     appearance-none border border-gray-300 rounded-full py-2 px-4' />
+                <Inputs type="file" name="imagen" placeholder="Subir foto" onChange={handleInputChange} value={registraPets.imagen} className='input inputFile     appearance-none border border-gray-300 rounded-full py-2 px-4' />
               </div>
               <div className='divs-content m-1'>
                 <select name="genero" onChange={handleInputChange} value={registraPets.genero} className="select    bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md" >
@@ -134,7 +150,7 @@ const AdicionarMascotas = () => {
               <Boton className={'button    bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 text-white font-bold py-2 px-4 rounded-full mx-auto'}>Guardar</Boton>
             </div>
         </form>
-        {/* <Forms
+        {/* <FormsRegisterUpdate
           razas={razas}
           categorias={categorias}
           generos={generos}

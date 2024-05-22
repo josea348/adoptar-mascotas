@@ -10,9 +10,49 @@
     margin: auto;
 }
 
+.div-title-btn {
+    display: grid;
+    grid-template: 'Former  div-title   btn-close' /
+                    1fr     6fr         1fr;
+}
+
+.Former {
+    grid-area: Former;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formerImg {
+    cursor: pointer;
+}
+
+.div-title {
+    grid-area: div-title;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .title {
     color: #fff;
     text-align: center;
+}
+
+.classDiv {
+    grid-area: btn-close;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-close {
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .img-primary {

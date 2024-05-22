@@ -94,19 +94,3 @@ export const borrar = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 }
-
-export const alterEstadoId = async (req, res) => {
-  try {
-    let sql = `ALTER TABLE users ADD COLUMN estado ENUM('Activo','Inactivo') NOT NULL DEFAULT 'Activo'`;
-    const [users] = await pool.query(sql);
-    if (users.length > 0) {
-      res.status(200).json({message: 'Se añadio la columna estado a la tabla users.'});
-      console.log(users);
-    } else {
-      res.status(404).json({ message: "No se añadio la columna estado a la tabla users." });
-      console.log("No se añadio la columna estado a la tabla users.");
-    }
-  } catch (e) {
-    res.status(500).json({ message: e.message });
-  }
-}
