@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {FaEdit, FaSearch, FaTrashAlt} from 'react-icons/fa';
 import './css/administrarMascota.css'
 import Boton from './Atoms/Boton';
@@ -12,6 +12,8 @@ const AdministrarMascotas = () => {
   const [user, setUser] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedPets, setSelectedPets] = useState(null);
+  const auth = localStorage.getItem("token");
+  const users = JSON.parse(localStorage.getItem("userId"));
   
   const openModal = (pet) => {
     setModal(true);
@@ -74,6 +76,13 @@ const AdministrarMascotas = () => {
     localStorage.removeItem('userId');
   }
   
+  if (!auth || !users) {
+    Swal.fire({
+      text: "Tienes que iniciar sesión primero para poder ingresar a la plataforma",
+      icon: "error"
+    });
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className='container'>

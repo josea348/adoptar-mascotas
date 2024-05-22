@@ -6,7 +6,7 @@ const routPets = Router();
 
 routPets.get('/listar', get);
 routPets.get('/listarNombre',validarToken,getName);
-routPets.post('/crear',validarToken,createPetValidation,cargarImagen,create);
+routPets.post('/crear',createPetValidation,cargarImagen,create);
 routPets.get('/buscar/:id', getForId);
 routPets.put('/actualizar/:id',validarToken,updatePetValidation,cargarImagen,update);
 routPets.delete('/borrar/:id',borrar);

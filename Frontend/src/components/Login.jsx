@@ -3,7 +3,7 @@ import Inputs from './Atoms/Inputs'
 import Boton from './Atoms/Boton'
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import cookies from 'universal-cookie';
 
 const Login = () => {
@@ -12,6 +12,8 @@ const Login = () => {
     password: ''
   });
   const navigate = useNavigate();
+  const auth = localStorage.getItem("token");
+  const users = JSON.parse(localStorage.getItem("user"));
 
   const handleInputChange = (e) => {
     setLogin({...login, [e.target.name]: e.target.value});
@@ -48,6 +50,10 @@ const Login = () => {
 
   const registro = () => {
     navigate('/registrar')
+  }
+
+  if (auth || users) {
+    return <Navigate to="/dashboard" />;
   }
 
   return (
