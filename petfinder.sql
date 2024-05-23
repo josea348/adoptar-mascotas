@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2024 a las 04:07:41
+-- Servidor: 127.0.0.1:3308
+-- Tiempo de generación: 23-05-2024 a las 18:58:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -85,7 +85,9 @@ CREATE TABLE `pets` (
 
 INSERT INTO `pets` (`idPets`, `namePets`, `race_id`, `category_id`, `photo`, `gender_id`, `user_id`, `estado`) VALUES
 (1, 'Karsten', 5, 2, 'photo-sm-1.svg', 1, 1, 'Activo'),
-(2, 'Alban', 6, 2, 'photo-sm-2.svg', 1, 1, 'Activo');
+(2, 'Alban', 6, 2, 'photo-sm-2.svg', 1, 1, 'Activo'),
+(10, 'Lucas', 5, 2, 'photo-sm-3.svg', 1, 1, 'Activo'),
+(11, 'Luna', 5, 2, 'photo-sm-4.svg', 2, 11, 'Activo');
 
 -- --------------------------------------------------------
 
@@ -109,7 +111,9 @@ INSERT INTO `races` (`idRaces`, `nameRaces`, `estado`) VALUES
 (3, 'Pinche', 'Activo'),
 (4, 'Doberman', 'Activo'),
 (5, 'Bulldog', 'Activo'),
-(6, 'Corgi', 'Activo');
+(6, 'Corgi', 'Activo'),
+(7, 'Siamese', 'Activo'),
+(8, 'Graycat', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -138,7 +142,8 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `estado`) VALUES
 (7, 'Maria Velez', 'maria2638@gmail.com', '$2b$10$6FC', 'Activo'),
 (8, 'Sharit Vargas', 'sharitvargas07@gmail.com', '$2b$10$HuL', 'Activo'),
 (9, 'Rosa Muñoz', 'rosaelnamunozvega283@gmail.com', '$2b$10$gAK', 'Activo'),
-(10, 'Dario Velez', 'jv142493@gmail.com', '$2b$10$UXv', 'Activo');
+(10, 'Dario Velez', 'jv142493@gmail.com', '$2b$10$UXv', 'Activo'),
+(11, 'Pedro Velez', 'padroarturovelezmunoz@gmail.com', '$2b$10$.b5', 'Activo');
 
 --
 -- Índices para tablas volcadas
@@ -198,19 +203,19 @@ ALTER TABLE `genders`
 -- AUTO_INCREMENT de la tabla `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `idPets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idPets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `races`
 --
 ALTER TABLE `races`
-  MODIFY `idRaces` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idRaces` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

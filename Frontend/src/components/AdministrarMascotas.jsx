@@ -12,13 +12,12 @@ const AdministrarMascotas = () => {
   const [pets, setPets] = useState([]);
   const [user, setUser] = useState([]);
   const [modal, setModal] = useState(false);
-  const [selectedPets, setSelectedPets] = useState(null);
+  const [selectedPet, setSelectedPet] = useState(null);
   const [generos, setGeneros] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [razas, setRazas] = useState([]);
   const [modalActualizar, setModalActualizar] = useState(false);
-  const [selectPets, setSelectPets] = useState(null);
-  const [updatedPetsData, setUpdatedPetsData] = useState({
+  const [updatedPetData, setUpdatedPetData] = useState({
     nombre: '',
     raza: '',
     categoria: '',
@@ -30,7 +29,7 @@ const AdministrarMascotas = () => {
   
   const openModal = (pet) => {
     setModal(true);
-    setSelectedPets(pet);
+    setSelectedPet(pet);
   }
 
   const closeModal = () => {
@@ -70,12 +69,12 @@ const AdministrarMascotas = () => {
   }
 
   const openModalUpdate = (pet) => {
-    setSelectPets(pet);
-    setUpdatedPetsData({
+    setSelectedPet(pet);
+    setUpdatedPetData({
       nombre: pets.nombre,
       raza: pets.raza,
       categoria: pets.categoria,
-      imagen: pets.imagen,
+      imagen: '',
       genero: pets.genero
     });
     setModalActualizar(true);
@@ -85,23 +84,32 @@ const AdministrarMascotas = () => {
   }
 
   const handleInputChange = (e) => {
-    setUpdatedPetsData({...updatedPetsData, [e.target.name]: e.target.value})
+    setUpdatedPetData({ ...updatedPetData, [e.target.name]: e.target.value})
   }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-        await axios.put(`http://localhost:3000/pets/actualizar/${selectPets.idPets}`,updatedPetsData)
-        closeModalUpdate();
-        const updatedPets = users.map(user =>
-            user.identificacion === selectPets.identificacion ? { ...user, ...updatedPetsData } : user
-        );
-        setPets(updatedPets);
+      await axios.put(`http://localhost:3000/pets/actualizar/${selectedPet.idPets}`, updatedPetData)
+      closeModalUpdate();
+      const updatedPets = users.map((pet) =>
+        pet.idPets === selectedPet.idPets ? { ...pet, ...updatedPetData } : pet
+      );
+      setPets(updatedPets);
+      Swal.fire({
+        title: 'Exitó!',
+        text: 'Se actualizó la mascota',
+        icon: 'success',
+      });
     } catch (e) {
-        console.log('Error: '+e);
-        alert('Error: '+e);
+      console.log('Error: '+e);
+      Swal.fire({
+        title: 'Error!',
+        text: 'No se pudo actualizar la mascota',
+        icon: 'error',
+      });
     }
-    console.log(selectPets.idPets);
+    console.log(selectedPet.idPets);
 };
 
   const listarRaza = async () => {
@@ -135,8 +143,8 @@ const AdministrarMascotas = () => {
   }
 
   const actualizar = (pet) => {
-    setSelectedPets(pet)
-    setUpdatedPetsData({
+    setSelectedPet(pet)
+    setUpdatedPetData({
       nombre: pets.nombre,
       raza: pets.raza,
       categoria: pets.categoria,
@@ -165,7 +173,7 @@ const AdministrarMascotas = () => {
 
   const cerrarSesion = () => {
     navigator("/");
-    localStorage.removeItem('token');
+    localStorage.removeItem('tokens');
     localStorage.removeItem('userId');
   }
   
@@ -255,55 +263,101 @@ const AdministrarMascotas = () => {
         )}
         {modalActualizar && (
           <div className='modalPrincipal'>
-            <div className="modalSecundario">
+            <div className='modalSecundario'>
               <div className='div-title-btn'>
-                <div className="Former">
-                  <img src="./src/assets/btn-back.svg" alt="" className='formerImg' />
+                <div className='Former'>
+                  <img src='./src/assets/btn-back.svg' alt='' className='formerImg' />
                 </div>
-                <div className="div-title">
-                  <h1 className='title   text-white text-lg m-4 text-center'>Actulizar Mascotas</h1>
+                <div className='div-title'>
+                  <h1 className='title text-white text-lg m-4 text-center'>Actualizar Mascotas</h1>
                 </div>
-                <Boton onClick={() => closeModalUpdate()} className={'btn-close'} classDiv={'classDiv'}><img src="./src/assets/btn-close.svg" alt="" /></Boton>
+                <Boton onClick={() => closeModalUpdate()} className={'btn-close'} classDiv={'classDiv'}>
+                  <img src='./src/assets/btn-close.svg' alt='' />
+                </Boton>
               </div>
-              <div className="img-primary    flex justify-center">
-                <img src={`http://localhost:3000/img/${selectedPets.photo}`} alt="" className='img' />
+              <div className='img-primary flex justify-center'>
+                <img
+                  src={`http://localhost:3000/img/${selectedPet.photo}`}
+                  alt=''
+                  className='img'
+                />
               </div>
               <form onSubmit={handleUpdate} className='flex flex-col'>
-                  <div className="divs-input-select    grid grid-cols-2 gap-4">{/* grid md:grid-cols-2 sm:flex sm:flex-col sm:gap-4 */}
-                    <div className='divs-content m-1'>
-                      <Inputs type="text" name="nombre" placeholder="Nombre" onChange={handleInputChange} value={updatedPetsData.nombre} className='input inputText    bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md text-black' />
-                    </div>
-                    <div className='divs-content m-1'>
-                      <select name="raza" onChange={handleInputChange} value={updatedPetsData.raza} className="select     bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md" >
-                        <option value="">Seleccione raza</option>
-                        {razas.map(raza => (
-                          <option key={raza.idRaces} value={raza.idRaces}>{raza.nameRaces}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className='divs-content m-1'>
-                      <select name="categoria" onChange={handleInputChange} value={updatedPetsData.categoria} className="select     bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md" >
-                        <option value="">Seleccione categoria</option>
-                        {categorias.map(categoria => (
-                          <option key={categoria.idCategories} value={categoria.idCategories}>{categoria.nameCategories}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className='divs-content m-1'>
-                      <Inputs type="file" name="imagen" placeholder="Subir foto" onChange={handleInputChange} value={updatedPetsData.imagen} className='input inputFile     appearance-none border border-gray-300 rounded-full py-2 px-4' />
-                    </div>
-                    <div className='divs-content m-1'>
-                      <select name="genero" onChange={handleInputChange} value={updatedPetsData.genero} className="select    bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md" >
-                        <option value="">Seleccione Genero</option>
-                        {generos.map(genero => (
-                          <option key={genero.idGender} value={genero.idGender}>{genero.nameGender}</option>
-                        ))}
-                      </select>
-                    </div>
+                <div className='divs-input-select grid grid-cols-2 gap-4'>
+                  <div className='divs-content m-1'>
+                    <Inputs
+                      type='text'
+                      name='nombre'
+                      placeholder='Nombre'
+                      onChange={handleInputChange}
+                      value={updatedPetData.nombre}
+                      className='input inputText bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md text-black'
+                    />
                   </div>
                   <div className='divs-content m-1'>
-                    <Boton className={'button    bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 text-white font-bold py-2 px-4 rounded-full mx-auto'}>Guardar</Boton>
+                    <select
+                      name='raza'
+                      onChange={handleInputChange}
+                      value={updatedPetData.raza}
+                      className='select bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md'
+                    >
+                      <option value=''>Seleccione raza</option>
+                      {razas.map((raza) => (
+                        <option key={raza.idRaces} value={raza.idRaces}>
+                          {raza.nameRaces}
+                        </option>
+                      ))}
+                    </select>
                   </div>
+                  <div className='divs-content m-1'>
+                    <select
+                      name='categoria'
+                      onChange={handleInputChange}
+                      value={updatedPetData.categoria}
+                      className='select bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md'
+                    >
+                      <option value=''>Seleccione categoria</option>
+                      {categorias.map((categoria) => (
+                        <option key={categoria.idCategories} value={categoria.idCategories}>
+                          {categoria.nameCategories}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className='divs-content m-1'>
+                    <Inputs
+                      type='file'
+                      name='imagen'
+                      placeholder='Subir foto'
+                      onChange={handleInputChange}
+                      className='input inputFile appearance-none border border-gray-300 rounded-full py-2 px-4'
+                    />
+                  </div>
+                  <div className='divs-content m-1'>
+                    <select
+                      name='genero'
+                      onChange={handleInputChange}
+                      value={updatedPetData.genero}
+                      className='select bg-white bg-opacity-30 border border-gray-300 rounded-full px-4 py-2 outline-none shadow-md'
+                    >
+                      <option value=''>Seleccione Genero</option>
+                      {generos.map((genero) => (
+                        <option key={genero.idGender} value={genero.idGender}>
+                          {genero.nameGender}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className='divs-content m-1'>
+                  <Boton
+                    className={
+                      'button bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 text-white font-bold py-2 px-4 rounded-full mx-auto'
+                    }
+                  >
+                    Guardar
+                  </Boton>
+                </div>
               </form>
             </div>
           </div>
