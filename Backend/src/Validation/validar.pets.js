@@ -5,6 +5,7 @@ export const createPetValidation = [
   check('raza', 'La raza es obligatorio.').notEmpty().isInt(),
   check('categoria','La categoria se necesita.').notEmpty().isInt(),
   check('genero', 'El genero es necesario.').notEmpty().isInt(),
+  check('iduser', 'El usuario es obligatorio.').notEmpty().isInt(),
   check('imagen').custom((value, { req }) => {
     if (!req.file) {
       throw new Error('Debe proporcionar una imagen.');
@@ -19,6 +20,7 @@ export const updatePetValidation = [
   check('raza', 'La raza es obligatorio.').optional().isInt(),
   check('categoria','La categoria se necesita.').optional().isInt(),
   check('genero', 'El genero es necesario.').optional().isInt(),
+  check('iduser', 'El usuario es obligatorio.').notEmpty().isInt(),
   check('imagen').optional().custom((value, { req }) => {
     if (req.file) {
       throw new Error('No se permite actualizar la imagen de esta manera.');

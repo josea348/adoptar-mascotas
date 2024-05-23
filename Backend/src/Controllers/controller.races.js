@@ -48,16 +48,30 @@ export const getForId = async (req, res) => {
   }
 }
 
-export const alterEstadoId = async (req, res) => {
+export const desactivar = async (req, res) => {
   try {
-    let sql = `ALTER TABLE races ADD COLUMN estado ENUM('Activo','Inactivo') NOT NULL DEFAULT 'Activo'`;
-    const [races] = await pool.query(sql);
-    if (races.length > 0) {
-      res.status(200).json({message: 'Se añadio la columna estado a la tabla races.'});
-      console.log('Se añadio la columna estado a la tabla races.');
+    const { id } = req.params;
+    let sql = `UPDATE races SET estado = 1 WHERE idRaces='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se desactivo exitosamente del id "+id+"."  });
     } else {
-      res.status(404).json({ message: "No se añadio la columna estado a la tabla races." });
-      console.log("No se añadio la columna estado a la tabla races.");
+      res.status(404).json({ message: `No se desactivo la genero con el id ${id}.` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export const activar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE races SET estado=2 WHERE idRaces='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se activo exitosamente del id "+id+"."  });
+    } else {
+      res.status(404).json({ message: `No se activo la genero con el id ${id}.` });
     }
   } catch (e) {
     res.status(500).json({ message: e.message });

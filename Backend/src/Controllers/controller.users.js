@@ -14,7 +14,7 @@ export const get = async (req, res) => {
       console.log("No existen usuarios en la base de datos.");
     }
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    res.status(500).json({ message: 'Error: '+e });
   }
 }
 
@@ -89,6 +89,36 @@ export const borrar = async (req, res) => {
     } else {
       res.status(404).json({ message: `No existe mascota con el id ${id}.` });
       console.log(`No existen genero con el id ${id}.`);
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export const desactivar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE users SET estado = 1 WHERE id='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se desactivo exitosamente del id "+id+"."  });
+    } else {
+      res.status(404).json({ message: `No se desactivo la genero con el id ${id}.` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export const activar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE users SET estado=2 WHERE id='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se activo exitosamente del id "+id+"."  });
+    } else {
+      res.status(404).json({ message: `No se activo la genero con el id ${id}.` });
     }
   } catch (e) {
     res.status(500).json({ message: e.message });

@@ -12,8 +12,8 @@ const Login = () => {
     password: ''
   });
   const navigate = useNavigate();
-  const auth = localStorage.getItem("token");
-  const users = JSON.parse(localStorage.getItem("user"));
+  const auth = localStorage.getItem("tokens");
+  const users = JSON.parse(localStorage.getItem("userId"));
 
   const handleInputChange = (e) => {
     setLogin({...login, [e.target.name]: e.target.value});
@@ -29,7 +29,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/validarUser', login);
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('tokens', response.data.token);
         localStorage.setItem('userId', response.data.user.id);
         Swal.fire({
           title: "Exito!",

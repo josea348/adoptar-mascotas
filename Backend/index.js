@@ -13,8 +13,14 @@ const servidor = express();
 
 servidor.use(bodyParser.json());
 servidor.use(bodyParser.urlencoded({ extended: true }));
+servidor.set('view engine', 'ejs');
+servidor.set('views','./view');
 
 servidor.use(express.static('./public'));
+
+servidor.get('/documents',(req, res)=>{
+  res.render('documentation.ejs');
+});
 
 servidor.use(cors());
 

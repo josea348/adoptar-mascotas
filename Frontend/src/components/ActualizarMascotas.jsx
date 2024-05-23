@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import Boton from './Atoms/Boton';
-import Inputs from './Atoms/Inputs';
-import './css/adicionarMascotas.css'
+import Boton from './Atoms/Boton'
+import Inputs from './Atoms/Inputs'
 import Swal from 'sweetalert2';
-import FormsRegisterUpdate from './Molecules/FormsRegisterUpdate';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const AdicionarMascotas = () => {
+const ActualizarMascotas = () => {
   const [generos, setGeneros] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [razas, setRazas] = useState([]);
@@ -106,7 +104,7 @@ const AdicionarMascotas = () => {
             <img src="./src/assets/btn-back.svg" alt="" className='formerImg' />
           </div>
           <div className="div-title">
-            <h1 className='title   text-white text-lg m-4 text-center'>Adicionar Mascotas</h1>
+            <h1 className='title   text-white text-lg m-4 text-center'>Actulizar Mascotas</h1>
           </div>
           <Boton onClick={() => closeForm()} className={'btn-close'} classDiv={'classDiv'}><img src="./src/assets/btn-close.svg" alt="" /></Boton>
         </div>
@@ -163,4 +161,4 @@ const AdicionarMascotas = () => {
   )
 }
 
-export default AdicionarMascotas
+export default ActualizarMascotas

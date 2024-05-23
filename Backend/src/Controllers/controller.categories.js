@@ -64,16 +64,30 @@ export const update = async (req, res) => {
   }
 }
 
-export const alterEstadoId = async (req, res) => {
+export const desactivar = async (req, res) => {
   try {
-    let sql = `ALTER TABLE categories ADD COLUMN estado ENUM('Activo','Inactivo') NOT NULL DEFAULT 'Activo'`;
+    const { id } = req.params;
+    let sql = `UPDATE categories SET estado=1 WHERE idCategories='${id}'`;
     const [categories] = await pool.query(sql);
-    if (categories.length > 0) {
-      res.status(200).json({message: 'Se añadio la columna estado a la tabla categories.'});
-      console.log(categories);
+    if (categories.affectedRows > 0) {
+      res.status(200).json({ message: "categoria se desactivo exitosamente del id "+id+"." });
     } else {
-      res.status(404).json({ message: "No se añadio la columna estado a la tabla categories." });
-      console.log("No se añadio la columna estado a la tabla categories.");
+      res.status(404).json({ message: `No se desactivo la categoria con el id ${id}.` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export const activar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE categories SET estado=2 WHERE idCategories='${id}'`;
+    const [categories] = await pool.query(sql);
+    if (categories.affectedRows > 0) {
+      res.status(200).json({ message: "categoria se activo exitosamente del id "+id+"." });
+    } else {
+      res.status(404).json({ message: `No se activo la categoria con el id ${id}.` });
     }
   } catch (e) {
     res.status(500).json({ message: e.message });

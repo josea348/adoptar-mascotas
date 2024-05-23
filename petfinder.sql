@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2024 a las 04:56:54
+-- Tiempo de generación: 23-05-2024 a las 04:07:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,7 +59,7 @@ CREATE TABLE `genders` (
 --
 
 INSERT INTO `genders` (`idGender`, `nameGender`, `estado`) VALUES
-(1, 'Macho', 'Activo'),
+(1, 'Macho', 'Inactivo'),
 (2, 'Hembra', 'Activo');
 
 -- --------------------------------------------------------
@@ -132,7 +132,13 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `estado`) VALUES
 (1, 'Jose Velez', 'jv1424937@gmail.com', '$2b$10$wHI', 'Activo'),
 (2, 'Pepito Perez', 'pepiperez24937@gmail.com', '$2b$10$.cZ', 'Activo'),
-(4, 'Yesica', 'yesica123@gmail.com', '$2b$10$lxm', 'Activo');
+(4, 'Yesica', 'yesica123@gmail.com', '$2b$10$lxm', 'Activo'),
+(5, 'Juanito Garcia', 'juan1234@gmail.com', '$2b$10$1dt', 'Activo'),
+(6, 'Lucas', 'lucas26@gmail.com', '$2b$10$L1T', 'Activo'),
+(7, 'Maria Velez', 'maria2638@gmail.com', '$2b$10$6FC', 'Activo'),
+(8, 'Sharit Vargas', 'sharitvargas07@gmail.com', '$2b$10$HuL', 'Activo'),
+(9, 'Rosa Muñoz', 'rosaelnamunozvega283@gmail.com', '$2b$10$gAK', 'Activo'),
+(10, 'Dario Velez', 'jv142493@gmail.com', '$2b$10$UXv', 'Activo');
 
 --
 -- Índices para tablas volcadas
@@ -192,7 +198,7 @@ ALTER TABLE `genders`
 -- AUTO_INCREMENT de la tabla `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `idPets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idPets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `races`
@@ -204,7 +210,7 @@ ALTER TABLE `races`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

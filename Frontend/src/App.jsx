@@ -5,6 +5,7 @@ import Login from './components/Login';
 import AdministrarMascotas from './components/AdministrarMascotas';
 import AdicionarMascotas from './components/AdicionarMascotas';
 import RegisterUser from './components/RegisterUser';
+import ActualizarMascotas from './components/ActualizarMascotas';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/dashboard' element={<AdministrarMascotas />} />
         <Route path='/adicionar' element={<AdicionarMascotas />} />
         <Route path='/registrar' element={<RegisterUser />} />
+        <Route path='/actualizar' element={<ActualizarMascotas />} />
       </Routes>
     </BrowserRouter>
   );

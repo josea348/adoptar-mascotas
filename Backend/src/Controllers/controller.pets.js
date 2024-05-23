@@ -122,3 +122,33 @@ export const borrar = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 }
+
+export const desactivar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE pets SET estado = 1 WHERE idPets='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se desactivo exitosamente del id "+id+"."  });
+    } else {
+      res.status(404).json({ message: `No se desactivo la genero con el id ${id}.` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}
+
+export const activar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let sql = `UPDATE pets SET estado=2 WHERE idPets='${id}'`;
+    const [genders] = await pool.query(sql);
+    if (genders.affectedRows > 0) {
+      res.status(200).json({ message: "El genero se activo exitosamente del id "+id+"."  });
+    } else {
+      res.status(404).json({ message: `No se activo la genero con el id ${id}.` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+}

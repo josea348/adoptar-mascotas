@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentacion de la api - adoctar mascotas</title>
+</head>
+<body>
+  <h1>Documentacion de la api</h1>
+  <hr>
+  <h2>Requerimiento 1. Documentacion del ENDPOINT USUARIO</h2>
+  <table>
+    <tr>
+      <td>NÚMERO</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>NOMBRE DE SERVICIO</td>
+      <td>Listar usuario</td>
+    </tr>
+    <tr>
+      <td>URI</td>
+      <td>/user/listar</td>
+    </tr>
+    <tr>
+      <td>DESCRIPCIÓN</td>
+      <td>Permite listarlos usuariosre gistrados en la base de datos</td>
+    </tr>
+    <tr>
+      <td>VERBO HTTP</td>
+      <td>GET</td>
+    </tr>
+    <tr>
+      <td>HEADER</td>
+      <td>NULL</td>
+    </tr>
+    <tr>
+      <td>USUARIOS</td>
+      <td>Administrador</td>
+    </tr>
+    <tr>
+      <td>PETICIÓN json</td>
+      <td>{nombre:'Juanito'}</td>
+    </tr>
+    <tr>
+      <td>REPUESTA JSON</td>
+      <td>
+        Correcto:
+        Status: 200
+        [
+          {
+            "id": 1,
+            "fullname": "Jose Velez",
+            "email": "jv1424937@gmail.com",
+            "password": "$2b$10$wHI",
+            "estado": "Activo"
+          },
+          {
+            "id": 2,
+            "fullname": "Pepito Perez",
+            "email": "pepiperez24937@gmail.com",
+            "password": "$2b$10$.cZ",
+            "estado": "Activo"
+          }
+        ]
+        Incorrecto:
+        status: 404,
+        Status:{
+          message: "No existen usuarios en la base de datos."
+        }
+        Error: 
+        status: 500,
+        body:{
+          message:"Error: "+e
+        }
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
